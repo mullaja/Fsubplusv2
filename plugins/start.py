@@ -12,7 +12,7 @@ from fsub.config import (
     RESTRICT,
     START_MESSAGE,
 )
-from fsub.database import add_user, del_user, full_userbase, present_user
+from fsub.database import add_user, del_user, full_user, check_user
 
 from hydrogram import filters
 from hydrogram.errors import FloodWait
@@ -51,7 +51,7 @@ async def time_duration(seconds):
 @Bot.on_message(filters.command("start") & filters.private & is_subscriber )
 async def start_command(client: Bot, message: Message):
     id = message.from_user.id
-    if not present_user(id):
+    if not check_user(id):
         try:
             add_user(id)
         except Exception:
@@ -162,7 +162,7 @@ async def not_joined(client: Bot, message: Message):
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(message.chat.id, "Mengecek...")
-    await msg.edit(f"{len(full_userbase())} Pengguna Bot")
+    await msg.edit(f"{len(full_user())} Pengguna Bot")
 
 
 
@@ -177,7 +177,7 @@ async def send_text(client: Bot, message: Message):
         please_wait = await message.reply(
             "Mengirim pesan siaran..."
         )
-        for chat_id in full_userbase():
+        for chat_id in full_user():
             try:
                 await broadcast_msg.copy(chat_id, protect_content=RESTRICT)
                 successful += 1

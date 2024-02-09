@@ -1,1 +1,1 @@
-{"name":"File Share Telegram Bot","env":{"BOT_TOKEN":{"required":true},"ADMINS":{"required":true},"CHANNEL_DB":{"required":true},"DATABASE_URL":{"required":true},"DATABASE_NAME":{"required":true},"FORCE_SUB_1":{"required":false}},"formation":{"worker":{"quantity":1,"size":"eco"}}}
+{"name":"File Share - Telegram Bot","env":{"BOT_TOKEN":{"required":true},"ADMINS":{"required":true},"CHANNEL_DB":{"required":true},"DATABASE_URL":{"required":true},"DATABASE_NAME":{"required":true},"FORCE_SUB_1":{"required":false}},"formation":{"worker":{"quantity":1,"size":"eco"}}}

@@ -21,4 +21,4 @@ RUN pip install -U \
                 -r requirements.txt
 
 # COMMAND TO RUN
-CMD ["python", "main.py"]
+CMD ["python", "-m", "fsub"]

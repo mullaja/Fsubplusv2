@@ -6,7 +6,7 @@ database = dbclient[DATABASE_NAME]
 user_data = database['users']
 
 
-def present_user(user_id : int):
+def check_user(user_id : int):
     found = user_data.find_one({'_id': user_id})
     return bool(found)
 
@@ -16,7 +16,7 @@ def add_user(user_id: int):
     return
 
 
-def full_userbase():
+def full_user():
     user_docs = user_data.find()
     user_ids = []
     for doc in user_docs:

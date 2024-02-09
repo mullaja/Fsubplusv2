@@ -1,4 +1,5 @@
 import sys
+import uvloop
 
 from hydrogram import Client
 
@@ -8,6 +9,8 @@ from fsub.config import (
     LOGGER,
     BOT_TOKEN,
 )
+
+uvloop.install()
 
 
 class Bot(Client):
@@ -22,6 +25,7 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
 
+
     async def start(self):
         try:
             await super().start()
@@ -33,7 +37,7 @@ class Bot(Client):
                 f"  Username: @{self.username}\n\n"
             )
         except Exception as e:
-            self.LOGGER(__name__).warning(e)
+            self.LOGGER(__name__).error(e)
             sys.exit()
 
         for key, channel_id in FORCE_SUB_.items():
@@ -50,8 +54,8 @@ class Bot(Client):
                     f"  Chat ID: {info.id}\n\n"
                 )
             except Exception as e:
-                self.LOGGER(__name__).warning(e)
-                self.LOGGER(__name__).warning(
+                self.LOGGER(__name__).error(e)
+                self.LOGGER(__name__).error(
                     f"Pastikan @{self.username} "
                     f"menjadi Admin di FORCE_SUB_{key}\n\n"
                 )
@@ -67,8 +71,8 @@ class Bot(Client):
                 f"  Chat ID: {db_channel.id}\n\n"
             )
         except Exception as e:
-            self.LOGGER(__name__).warning(e)
-            self.LOGGER(__name__).warning(
+            self.LOGGER(__name__).error(e)
+            self.LOGGER(__name__).error(
                 f"Pastikan @{self.username} "
                 "menjadi Admin di CHANNEL_DB\n\n"
             )
@@ -78,6 +82,10 @@ class Bot(Client):
             "Bot Aktif!\n\n"
         )
 
+
     async def stop(self, *args):
         await super().stop()
         self.LOGGER(__name__).info("Bot Berhenti!\n\n")
+
+
+Bot().run()
